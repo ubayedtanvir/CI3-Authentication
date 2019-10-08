@@ -61,7 +61,7 @@ class Auth
         $this->load->library(['session', 'user_agent', 'encryption']);
 
         // load required helpers
-        $this->load->helper(['cookie', 'string']);
+        $this->load->helper(['cookie', 'string', 'auth']);
 
         // log message to debugger
         log_message('debug', 'Authentication library initialized.');
