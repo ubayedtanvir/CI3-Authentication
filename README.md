@@ -1,12 +1,12 @@
 # CodeIgniter 3 Authentication Library
 A simple and secure authentication library built for CodeIgniter 3 by [Abdullah Ubayed Tanvir](https://www.linkedin.com/in/ubayedtanvir).
-This library is built only for authentication, not for registration, password recovery session or email verification. For registration purpose, please use PHPs built in function `password_hash()` for hashing users password as this library uses `password_verify()` function to verify users password. For more information, please check [this link](https://www.php.net/manual/en/function.password-hash.php).
+This library is built only for authentication, not for registration, password recovery session or email verification. For registration purpose, please use PHP's built in function `password_hash()` for hashing users password as this library uses `password_verify()` function to verify users password. For more information, please check [this link](https://www.php.net/manual/en/function.password-hash.php).
 
 # Server requirements
 This library needs CodeIgniter version 3 and PHP version >= 5.6. This library may also work in PHP version 5.4 but strongly encourage you to upgrade.
 
 # Database tables
-Please check **database.sql** file for table structures. Three tables are required in total. You can rename table names if you want but do not change column names. Also ensure that you have changed table names in **Auth model** located in models directory.
+Please check **database_tables.sql** file for table structures. Three tables are required in total. You can rename table names if you want but do not change column names. Also ensure that you have changed table names in **Auth model** located in models directory.
 * Change **_table** property value for users table name
 ```bash
 private $_table = 'users';
