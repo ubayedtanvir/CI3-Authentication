@@ -42,13 +42,18 @@ class Auth_model extends CI_Model
      * @return  mixed
      */
 
-    public function getByID($userid)
+    public function getByID($userID, $userEmail, $columns = array())
     {
         // set a variable to store user's info
         $user = NULL;
 
+        // check if only specific columns should be returned
+        if(count($columns) > 0){
+            $this->db->select($columns);
+        }
+
         // query for the user
-        $query = $this->db->get_where($this->_table, array($this->_primary => $userid));
+        $query = $this->db->get_where($this->_table, array($this->_primary => $userID, 'email_address' => $userEmail));
 
         // check if any row returned
         if ($query->num_rows() === 1) {
@@ -62,12 +67,12 @@ class Auth_model extends CI_Model
     /**
      * Fetches user data if found.
      * 
-     * @method  getAuthUser
-     * @param   int     User ID
+     * @method  getUser
+     * @param   string  Users email address
      * @return  mixed
      */
 
-    public function getAuthUser($userEmail)
+    public function getUser($userEmail)
     {
         // set a variable to store user's info
         $user = NULL;
@@ -276,5 +281,3 @@ class Auth_model extends CI_Model
         return $this->db->update($this->_session_table, array('status' => '0'));
     }
 }
-
-/* End of file */

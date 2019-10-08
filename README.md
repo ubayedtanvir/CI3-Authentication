@@ -25,8 +25,9 @@ private $_attempts_table = 'auth_attempts';
 * Unzip on your project **aplication** folder.
 * Autoload `'auth'` library in your `application/config/autoload.php` file. Or just load the library using
 ```bash
-$this->load->library('ion_auth');
+$this->load->library('auth');
 ```
+* Set `encryption_key` on `application/config/config.php` file as it is neccessary for encryption library of CodeIgniter.
 * Now you can play with authentication.
 
 # APIs
@@ -37,6 +38,9 @@ $this->load->library('ion_auth');
     * int $remember_session - Remember the session or not. (not required but the value must be 1)
 * **is_logged()**
   Checks if any user is logged or not. Simply use `if($this->auth->is_logged())` to validate login session.
+* **getUserData()**
+  Fetches authorized users row from database.
+    * array $columns - `users` tables column names to select. If empty, this method will return all the data.
 * **getError()**
   Returns single messege if any error occurs while authenticating. Use `$this->auth->getError()` to fetch authentication error message.
 * **getMessage()**

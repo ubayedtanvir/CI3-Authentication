@@ -305,6 +305,43 @@ class Auth
     }
 
     /**
+     * Fetches authorized users data.
+     * 
+     * @method  logout
+     * @param   array   Users table column names to select.
+     * @return  array
+     */
+
+    public function getUserData($columns = array())
+    {
+        if (
+            get_cookie($this->config->item('auth_cookie_id'), TRUE)
+            && get_cookie($this->config->item('auth_cookie_key'), TRUE)
+        ) {
+            // store cookie informations in variables
+            $encryptedUserIDs = get_cookie($this->config->item('auth_cookie_id'), TRUE);
+            $enckey = get_cookie($this->config->item('auth_cookie_key'), TRUE);
+        } else {
+            // store session informations in variables
+            $encryptedUserIDs = $this->session->userdata($this->config->item('auth_session_id'));
+            $enckey = $this->session->userdata($this->config->item('auth_session_enkey'));
+        }
+
+        // check if any data is available
+        if (empty($encryptedUserIDs) || empty($enckey)) {
+            return FALSE;
+        }
+
+        // decrypt user IDs
+        $userIDs = $this->encryption->decrypt($encryptedUserIDs);
+
+        $userArray = explode('-', $userIDs);
+
+        // fetch and return user data
+        return $this->auth_model->getByID($userArray[0], $userArray[1], $columns);
+    }
+
+    /**
      * Logs an user out. On other words, it destroys session login data,
      * deletes cookie session data and deletes user log from database.
      * 
